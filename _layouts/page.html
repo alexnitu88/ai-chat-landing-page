@@ -1,32 +1,26 @@
 ---
 layout: default
-post_class: post-template page-template
 ---
 
-<nav class="main-nav clearfix">
-    <a class="back-button icon-arrow-left" href="{{ site.baseurl }}">Home</a>
-    <a class="subscribe-button icon-feed" href="{{ site.baseurl }}feed.xml">Subscribe</a>
-</nav>
 
+<section>
+    {% if page.section_title == true %}
+    <div class="section-title">
+        <h2><span>{{ page.title }}</span></h2>
+    </div>
+    {% endif %}
 
-<main class="content" role="main">
-    <article class="post">
-        <!-- <header class="post-header">
-            <a id="blog-logo" href="{{site.baseurl}}">
-                {% if site.logo %}
-                    <img src="{{site.logo}}" alt="{{ site.name }}" />
-                {% else %}
-                    <span class="blog-title">{{ site.name }}</span>
-                {%endif%}
-            </a>
-        </header> -->
+    <div class="article-post">
+        {{content}}
+    </div>
 
-        <h1 class="post-title">{{ page.title }}</h1>
+    {% if page.comments == true %}
 
-        <section class="post-content">
-            {{content}}
-        </section>
+    <div id="comments" class="row mb-5">
+        <div class="col-md-8">
+            {% include disqus.html %}
+        </div>
+    </div>
 
-    </article>
-
-</main>
+    {% endif %}
+</section>
