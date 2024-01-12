@@ -2,7 +2,7 @@ name: Kotlin Script Workflow
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *' # Runs every day at midnight. Change as needed.
+    - cron: '0 */4 * * *' # Runs every 4 hours
 
 env:
   OPEN_AI_KEY: ${{ secrets.OPEN_AI_KEY }}

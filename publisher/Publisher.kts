@@ -22,42 +22,40 @@ val authors = setOf(
 )
 val keywords = readKeywords(KEYWORDS_FILE)
 
-for (i in 0..4) {
-    val articleTopic = readFirstLine(ARTICLE_TOPICS_FILE)
-    if (articleTopic.isNullOrBlank()) {
-        println("No article topics found.")
-        break
-    }
-
-    //generate image
-    val imageFile = "${articleTopic.toMD5()}.jpg"
-    val imageFullPath = File(ARTICLE_IMAGES_PATH + imageFile)
-    if (!imageFullPath.exists()) {
-        val dallePrompt = generateDallePrompt(articleTopic)
-        val imgUrl = generateImage(dallePrompt)
-        if (imgUrl == null) break
-
-        saveDalleImage(imgUrl, articleTopic.toMD5())
-    } else {
-        println("Image file exists: $imageFile")
-    }
-
-    //generate article content
-    var articleContent: String
-    val articleKeywords = keywords.shuffled()
-            .subList(0, 7)
-    do {
-        articleContent = generateArticle(
-                topic = articleTopic,
-                keywords = articleKeywords.joinToString("\n")
-        )
-        Thread.sleep(3)
-    } while (articleContent.isEmpty())
-
-    saveArticle(articleTopic.split(":").first(), articleContent, articleKeywords, imageFile)
-
-    deleteFirstLine(ARTICLE_TOPICS_FILE)
+val articleTopic = readFirstLine(ARTICLE_TOPICS_FILE)
+if (articleTopic.isNullOrBlank()) {
+    println("No article topics found.")
+    break
 }
+
+//generate image
+val imageFile = "${articleTopic.toMD5()}.jpg"
+val imageFullPath = File(ARTICLE_IMAGES_PATH + imageFile)
+if (!imageFullPath.exists()) {
+    val dallePrompt = generateDallePrompt(articleTopic)
+    val imgUrl = generateImage(dallePrompt)
+    if (imgUrl == null) break
+
+    saveDalleImage(imgUrl, articleTopic.toMD5())
+} else {
+    println("Image file exists: $imageFile")
+}
+
+//generate article content
+var articleContent: String
+val articleKeywords = keywords.shuffled()
+        .subList(0, 7)
+do {
+    articleContent = generateArticle(
+            topic = articleTopic,
+            keywords = articleKeywords.joinToString("\n")
+    )
+    Thread.sleep(3)
+} while (articleContent.isEmpty())
+
+saveArticle(articleTopic.split(":").first(), articleContent, articleKeywords, imageFile)
+
+deleteFirstLine(ARTICLE_TOPICS_FILE)
 
 fun generateArticle(topic: String, keywords: String): String {
     println("Generating article: $topic")
