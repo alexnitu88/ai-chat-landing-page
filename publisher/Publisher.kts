@@ -25,7 +25,7 @@ val keywords = readKeywords(KEYWORDS_FILE)
 val articleTopic = readFirstLine(ARTICLE_TOPICS_FILE)
 if (articleTopic.isNullOrBlank()) {
     println("No article topics found.")
-    break
+    return
 }
 
 //generate image
@@ -34,7 +34,7 @@ val imageFullPath = File(ARTICLE_IMAGES_PATH + imageFile)
 if (!imageFullPath.exists()) {
     val dallePrompt = generateDallePrompt(articleTopic)
     val imgUrl = generateImage(dallePrompt)
-    if (imgUrl == null) break
+    if (imgUrl == null) return
 
     saveDalleImage(imgUrl, articleTopic.toMD5())
 } else {
