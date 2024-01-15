@@ -33,6 +33,6 @@ jobs:
           git config --global user.email 'your-email@example.com'
           git add _posts/*.md
           git add assets/images/article_images/*.jpg
-          ls -l _posts
+          git add publisher/article-topics.txt
           git commit -m "Add generated article"
           git push
