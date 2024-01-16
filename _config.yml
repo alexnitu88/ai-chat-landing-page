@@ -123,24 +123,24 @@ exclude: [ changelog.md, LICENSE.txt, README.md, Gemfile, Gemfile.lock ]
 email: sageaitech@gmail.com
 url: "https://gptaichat.app" # the base hostname & protocol for your site, e.g. http://example.com
 theme_color: '#efeeff'
-twitter_username: sandochee
-github_username: sandoche
-author: Sandoche Adittane
-twitter:
-  username: sandochee
+#twitter_username: sandochee
+#github_username: sandoche
+#author: Sandoche Adittane
+#twitter:
+#  username: sandochee
 social:
-  name: Sandoche Adittane
-  links:
-    - https://twitter.com/sandochee
-    - https://www.facebook.com/sandoche
-    - https://www.linkedin.com/in/sandoche
-    - https://plus.google.com/+SandocheADITTANE
-    - https://github.com/sandoche
+  name: Prodigy AI
+#  links:
+#    - https://twitter.com/sandochee
+#    - https://www.facebook.com/sandoche
+#    - https://www.linkedin.com/in/sandoche
+#    - https://plus.google.com/+SandocheADITTANE
+#    - https://github.com/sandoche
 
 languages: [ "en" ]
 ampdir: amp
 
-github: https://github.com/sandoche/Mobile-app-landingpage-template
+#github: https://github.com/sandoche/Mobile-app-landingpage-template
 
 app:
   name: ChatGPT AI Chat
@@ -174,17 +174,17 @@ app:
       description: Description
       featured: Featured in
 
-    footer:
-      copyright: Made with ❤️ in Europe 🇪🇺 by <a href="https://www.sandoche.com" target="_blank">Sandoche</a>
-      links:
-        - title: Github
-          url: https://github.com/sandoche/Mobile-app-landingpage-template
-          target: _blank
-        - title: Donate
-          url: https://paypal.me/kanbanote
-          target: _blank
-        - title: Privacy
-          url: /privacy
+#    footer:
+#      copyright: Made with ❤️ in Europe 🇪🇺 by <a href="https://www.sandoche.com" target="_blank">Sandoche</a>
+#      links:
+#        - title: Github
+#          url: https://github.com/sandoche/Mobile-app-landingpage-template
+#          target: _blank
+#        - title: Donate
+#          url: https://paypal.me/kanbanote
+#          target: _blank
+#        - title: Privacy
+#          url: /privacy
 
 
 ### Google webmaster tools, Google Analytics, Doorbell and Cookie consent uncomment and put the API key
