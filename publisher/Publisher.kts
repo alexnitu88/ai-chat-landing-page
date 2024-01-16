@@ -23,38 +23,36 @@ val authors = setOf(
 val keywords = readKeywords(KEYWORDS_FILE)
 
 val articleTopic = readFirstLine(ARTICLE_TOPICS_FILE)
-if (!articleTopic.isNullOrBlank()) {
-    //generate image
-    val imageFile = "${articleTopic.toMD5()}.jpg"
-    val imageFullPath = File(ARTICLE_IMAGES_PATH + imageFile)
-    if (!imageFullPath.exists()) {
-        val dallePrompt = generateDallePrompt(articleTopic)
-        val imgUrl = generateImage(dallePrompt)
-        if (imgUrl != null) {
-            saveDalleImage(imgUrl, articleTopic.toMD5())
-        }
-    } else {
-        println("Image file exists: $imageFile")
-    }
+require(!articleTopic.isNullOrBlank()) { "No article topics found." }
 
-    //generate article content
-    var articleContent: String
-    val articleKeywords = keywords.shuffled()
-            .subList(0, 7)
-    do {
-        articleContent = generateArticle(
-                topic = articleTopic,
-                keywords = articleKeywords.joinToString("\n")
-        )
-        Thread.sleep(3)
-    } while (articleContent.isEmpty())
-
-    saveArticle(articleTopic.split(":").first(), articleContent, articleKeywords, imageFile)
-
-    deleteFirstLine(ARTICLE_TOPICS_FILE)
+//generate image
+val imageFile = "${articleTopic.toMD5()}.jpg"
+val imageFullPath = File(ARTICLE_IMAGES_PATH + imageFile)
+if (imageFullPath.exists()) {
+    println("Image file exists: $imageFile")
 } else {
-    println("No article topics found.")
+    val dallePrompt = generateDallePrompt(articleTopic)
+    val imgUrl = generateImage(dallePrompt)
+    if (imgUrl != null) {
+        saveDalleImage(imgUrl, articleTopic.toMD5())
+    }
 }
+
+//generate article content
+var articleContent: String
+val articleKeywords = keywords.shuffled()
+        .subList(0, 7)
+do {
+    articleContent = generateArticle(
+            topic = articleTopic,
+            keywords = articleKeywords.joinToString("\n")
+    )
+    Thread.sleep(3)
+} while (articleContent.isEmpty())
+
+saveArticle(articleTopic.split(":").first(), articleContent, articleKeywords, imageFile)
+
+deleteFirstLine(ARTICLE_TOPICS_FILE)
 
 fun generateArticle(topic: String, keywords: String): String {
     println("Generating article: $topic")
@@ -270,7 +268,8 @@ fun saveDalleImage(imageUrl: String, fileName: String) {
 
         println("Image downloaded and converted to JPG format at: ${outputFile.absolutePath}")
     } catch (e: Exception) {
-        println("An error occurred: ${e.message}")
+        println("An error occurred while saving the dall-e image: ${e.message}")
+        throw e
     }
 }
 
